@@ -3,7 +3,7 @@ name: "brain-workflow"
 description: "初始化并维护 brain/ 文件夹的「想法→决策→计划→开发→归档」人机协作工作流。当用户要求初始化 brain、记录想法、登记拍板决策、展开开发计划、归档已完成任务，或提到 brain 文件夹这套流程时使用。"
 metadata:
   author: DuaneChen520
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # brain-workflow：想法 → 决策 → 计划 → 开发 → 归档
@@ -51,20 +51,21 @@ brain/
 ├── thoughts/           # 用户想法条目
 ├── plans/              # 开发计划
 └── archive/
-    ├── thoughts/       # 已完成想法归档
-    └── plans/          # 已完成计划归档
+    ├── thoughts/            # 已完成想法归档
+    ├── plans/               # 已完成计划归档
+    └── decisions-history.md # 历史决策归档（decisions.md 即时迁出）
 ```
 
-2. `decisions.md` 初始内容为三个空区块：
+2. `decisions.md` 初始内容为两个空区块加一行迁出指针（历史决策不驻留本文件）：
 
 ```markdown
 # 决策
 
+> 历史决策不驻留本文件：条目完成后即时迁入 `archive/decisions-history.md`（按年份分节）。
+
 ## 未开始的决策
 
 ## 进行中的决策
-
-## 历史决策
 ```
 
 3. 以 [references/rules-template.md](references/rules-template.md) 为底稿生成 `brain/rules.md`。**生成前必须询问用户**：
@@ -111,10 +112,10 @@ brain/
 
 - **一句话原则**：每个决策写成一句可独立读懂的话，只写"拍板了什么"，不展开理由、不贴正文；细节回 thoughts 条目查看。
 - **唯一对应**：一条决策对应且仅对应一个 thoughts 条目，句末以锚点注明出处。无对应 thoughts 条目的拍板，先补建 thoughts 条目再登记。同一想法的后续拍板更新原句，不新增条目。
-- **状态前置 + 三分区展示**：条目按 `## 未开始的决策` / `## 进行中的决策` / `## 历史决策` 三个区块组织，用户一屏即可了解全部决策态势。
+- **状态前置 + 两分区展示**：条目按 `## 未开始的决策` / `## 进行中的决策` 两个区块组织，用户一屏即可了解全部决策态势。
 - **唯一权威状态源**：本文件是状态的唯一权威；thoughts / plans 中的状态仅是镜像，冲突以本文件为准。
-- **简洁纪律**：整个文件保持一屏可读完；条目进入「历史决策」区块后措辞不再改动。
-- **历史膨胀控制**：历史决策条目超过 30 条时，AI 提议将已归档任务对应的条目迁出至 `archive/decisions-history.md`（按年份分节），原位置留一行指针。
+- **简洁纪律**：整个文件保持一屏可读完；条目迁入 `archive/decisions-history.md` 后措辞不再改动。
+- **历史不驻留**：已完成条目**即时**迁出至 `archive/decisions-history.md`（按年份分节），decisions.md 不设「历史决策」区块、不保留历史条目，防止占用日常上下文。
 - **计划衔接**：决策进入「进行中」前，应先在 `plans/` 建立对应计划文件。
 
 ## 四、展开计划（plans/）
@@ -152,7 +153,7 @@ brain/
 - **双份动作**：
   1. thoughts 条目移入 `archive/thoughts/`，文末留一行 `> 已归档至 archive/thoughts/`
   2. plans 文档移入 `archive/plans/`，文末留一行 `> 已归档至 archive/plans/`
-  3. decisions.md 中该条已在「历史决策」区块，措辞不动，**锚点不改**
+  3. decisions.md 中该条即时迁出至 `archive/decisions-history.md`，措辞不动，**锚点不改**（decisions.md 不保留历史区块）
 - 归档由 AI 提议、**用户确认后执行**；归档不删除内容，随时可撤回。
 - 搁置的决策**不归档**，留在 decisions.md 原区块（状态 `搁置`），待重启后再处理。
 
@@ -187,5 +188,5 @@ brain/
 - **AGENTS.md / CLAUDE.md 只放指针**，不复制工作流细节；细节全部收敛在 `brain/rules.md`。
 - **rules.md 只放规则、不放决策**：所有拍板一律进 `decisions.md`，rules.md 不设「已定与待定」之类的决策记录节。
 - **rules.md 不留僵尸条款**：规则删除或修改时同步检查全文，不保留无实现对应的死规则。
-- **归档是冷存储**：archive/ 中的文件不参与日常上下文，AI 默不阅读；历史决策膨胀时按阈值迁出。
+- **归档是冷存储**：archive/ 中的文件不参与日常上下文，AI 默不阅读；历史决策即时迁出，decisions.md 只留未开始与进行中。
 - **brain/ 纳入 git**：所有协作痕迹可追溯、可撤回（公有仓库需先做隐私确认）。
