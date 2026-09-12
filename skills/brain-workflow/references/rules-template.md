@@ -73,10 +73,10 @@ thoughts 的状态是镜像，冲突以 decisions.md 为准。
 - **一句话原则**：每个决策写成一句可独立读懂的话，只写"拍板了什么"；细节回 thoughts 条目查看。
 - **唯一对应**：一条决策对应且仅对应一个 thoughts 条目，句末以 `[thoughts-YYMMDD-HHMMSS]` 锚点注明出处。无对应 thoughts 条目的拍板，先补建 thoughts 条目再登记。同一想法的后续拍板更新原句，不新增条目。
 - **锚点解析**：锚点按 `thoughts/` → `archive/thoughts/` 的顺序解析；文件归档移动后**不修改锚点**。
-- **状态前置 + 三分区**：条目以状态词开头，文件按 `## 未开始的决策` / `## 进行中的决策` / `## 历史决策` 三区块组织。
+- **状态前置 + 两分区**：条目以状态词开头，文件按 `## 未开始的决策` / `## 进行中的决策` 两区块组织（历史条目即时迁出，不设历史区块）。
 - **唯一权威状态源**：decisions.md 是状态的唯一权威；thoughts / plans 中的状态仅是镜像，冲突以本文件为准。
-- **简洁纪律**：全文件保持一屏可读完；条目进入「历史决策」后措辞不再改动。
-- **历史膨胀控制**：历史决策条目超过 30 条时，AI 提议将已归档任务对应的条目迁出至 `archive/decisions-history.md`（按年份分节），原位置留一行指针。
+- **简洁纪律**：全文件保持一屏可读完；条目迁入 `archive/decisions-history.md` 后不再改动措辞。
+- **历史不驻留**：已完成条目**即时**迁出至 `archive/decisions-history.md`（按年份分节，迁出后措辞不再改动、锚点不改），decisions.md 不设「历史决策」区块、不保留历史条目。
 - **计划衔接**：决策进入「进行中」前，应先在 `plans/` 建立对应计划文件。
 
 条目格式：
@@ -131,6 +131,6 @@ thoughts 的状态是镜像，冲突以 decisions.md 为准。
 - **双份动作**：
   1. thoughts 条目移入 `archive/thoughts/`，文末留一行 `> 已归档至 archive/thoughts/`
   2. plans 文档移入 `archive/plans/`，文末留一行 `> 已归档至 archive/plans/`
-  3. decisions.md 中该条已在「历史决策」区块，措辞不动，锚点不改
+  3. decisions.md 中该条即时迁出至 `archive/decisions-history.md`，措辞不动，锚点不改（decisions.md 不保留历史区块）
 - 归档由 AI 提议、**用户确认后执行**；归档不删除内容，随时可撤回。
 - 搁置的决策**不归档**，留在 decisions.md 原区块（状态 `搁置`），待重启后再处理。
