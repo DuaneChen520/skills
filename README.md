@@ -19,6 +19,21 @@ plans/（计划文档，与 thoughts 同一时间戳命名）
 用户确认完成 → thoughts/plans 双份归档至 archive/
 ```
 
-**安装**：将 `skills/brain-workflow` 复制到你的 agent skills 目录（如 `.agents/skills/` 或 `~/.claude/skills/`）。
+## 安装
 
-**使用**：新项目中说"初始化 brain"，AI 会创建目录骨架、询问事实引用源/仓库可见性/工单边界，并生成项目专属的 `brain/rules.md`；之后日常只需说"记录想法 / 拍板 / 展开计划 / 归档"。
+**推荐**（自动检测本机已安装的 agent，支持 Claude Code / Codex / Cursor / OpenCode 等 75+）：
+
+```bash
+npx skills add DuaneChen520/skills
+```
+
+**手动**：clone 仓库后，将 `skills/brain-workflow` 复制到所用 agent 的 skills 目录：
+
+| Agent | 用户级（跨项目可用） | 项目级（仅当前仓库） |
+| --- | --- | --- |
+| Trae | `~/.agents/skills/` | 项目根 `.agents/skills/` 或 `.trae/skills/` |
+| Claude Code | `~/.claude/skills/` | 项目根 `.claude/skills/` |
+| 其他 | 见所用 agent 文档中的 skills 目录约定 | — |
+
+安装后重启会话生效。新项目中对 AI 说「初始化 brain」即可触发；日常说「记录想法 / 拍板 / 展开计划 / 归档」。
+
